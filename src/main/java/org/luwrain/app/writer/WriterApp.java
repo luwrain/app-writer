@@ -32,7 +32,7 @@ static public final String STRINGS_NAME = "luwrain.writer";
     private Luwrain luwrain;
     private final Base base = new Base();
     private Strings strings;
-    private EditArea area;
+    private Area area;
 
     private String arg = null;
 
@@ -66,43 +66,8 @@ static public final String STRINGS_NAME = "luwrain.writer";
 
     private void createArea()
     {
-	final Actions a = this;
-
-	area = new EditArea(new DefaultControlEnvironment(luwrain),"" ){
-		@Override public boolean onKeyboardEvent(KeyboardEvent event)
-		{
-		    NullCheck.notNull(event, "event");
-			return super.onKeyboardEvent(event);
-		}
-		@Override public boolean onEnvironmentEvent(EnvironmentEvent event)
-		{
-		    NullCheck.notNull(event, "event");
-		    switch(event.getCode())
-		    {
-		    case EnvironmentEvent.CLOSE:
-			a.closeApp();
-			return true;
-		    case EnvironmentEvent.SAVE:
-			//			actions.save();
-			return true;
-		    case EnvironmentEvent.ACTION:
-			//			if (ActionEvent.isAction(event, "remove-backslash-r"))
-			//			{
-			//			    actions.removeBackslashR();
-			//			    return true;
-			//			}
-			return false;
-		    default:
-			return super.onEnvironmentEvent(event);
-		    }
-		}
-		@Override public Action[] getAreaActions()
-		{
-		    return new Action[]{
-			//			new Action("remove-backslash-r", strings.actionTitle("remove-backslash-r")),
-		    };
-		}
-	    };
+	base.createNewDoc();
+	area = new Area(new DefaultControlEnvironment(luwrain), this, base.getRootBodyView());
     }
 
     @Override public AreaLayout getAreasToShow()

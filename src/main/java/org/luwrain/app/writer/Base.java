@@ -16,6 +16,10 @@
 
 package org.luwrain.app.writer;
 
+import java.util.*;
+
+import org.apache.poi.xwpf.usermodel.*;
+
 import org.luwrain.core.*;
 import org.luwrain.controls.*;
 
@@ -23,9 +27,25 @@ class Base
 {
     private Luwrain luwrain;
 
+    private XWPFDocument doc;
+    private BodyView bodyView;
+
     boolean init(Luwrain luwrain)
     {
 	this.luwrain = luwrain;
 	return true;
+    }
+
+    BodyView getRootBodyView()
+    {
+	if (bodyView == null)
+	    bodyView = new BodyView(doc);
+	return bodyView;
+    }
+
+    void createNewDoc()
+    {
+	doc = new XWPFDocument();
+	doc.createParagraph();
     }
 }
