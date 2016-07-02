@@ -5,7 +5,7 @@ import org.luwrain.core.*;
 import org.luwrain.core.events.*;
 import org.luwrain.controls.*;
 
-class Area extends NavigateArea
+class Area extends NavigationArea
 {
     private ControlEnvironment environment;
     private Actions actions;
