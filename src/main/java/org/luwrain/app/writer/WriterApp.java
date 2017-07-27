@@ -46,17 +46,18 @@ static public final String STRINGS_NAME = "luwrain.writer";
 	NullCheck.notNull(arg, "arg");
     }
 
-    @Override public boolean onLaunch(Luwrain luwrain)
+    @Override public InitResult onLaunchApp(Luwrain luwrain)
     {
+	NullCheck.notNull(luwrain, "luwrain");
 	final Object o = luwrain.i18n().getStrings(STRINGS_NAME);
 	if (o == null || !(o instanceof Strings))
-	    return false;
+return new InitResult(InitResult.Type.NO_STRINGS_OBJ, STRINGS_NAME);
 	strings = (Strings)o;
 	this.luwrain = luwrain;
 	if (!base.init(luwrain))
-	    return false;
+	    return new InitResult(InitResult.Type.FAILURE);
 	createArea();
-	return true;
+	return new InitResult();
     }
 
     @Override public String getAppName()
@@ -70,7 +71,7 @@ static public final String STRINGS_NAME = "luwrain.writer";
 	area = new Area(new DefaultControlEnvironment(luwrain), this, base.getRootBodyView());
     }
 
-    @Override public AreaLayout getAreasToShow()
+    @Override public AreaLayout getAreaLayout()
     {
 	return new AreaLayout(area);
     }
